@@ -45,6 +45,7 @@ def create_f(f_name, zoom_para, width_par_vec, output_val_num, flag_vector_plot,
     # 8: al
 
     if flag_vector_plot == 1:
+
         x_max = np.amax(np.absolute(data[:, int(output_val_num)]))
         y_max = np.amax(np.absolute(data[:, int(output_val_num + 1)]))
 
@@ -52,11 +53,13 @@ def create_f(f_name, zoom_para, width_par_vec, output_val_num, flag_vector_plot,
         if x_max < y_max:
             base = y_max
 
-        plt.quiver(data[:, 1],
+        Q = plt.quiver(data[:, 1],
                     data[:, 2],
                     data[:, int(output_val_num)],
                     data[:, int(output_val_num + 1)],
                     angles='xy',scale_units='width',scale=base*float(width_par_vec), width=0.01)
+
+        plt.quiverkey(Q, 0.85, 0.05, base, '%f'%(base), labelpos='E', coordinates='figure')
 
     # 界面描画
     for i in range(4*nc):
