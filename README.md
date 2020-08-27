@@ -1,1 +1,1 @@
-# create-movie-for-numerial-analysis-of-moding-droplet
+# create-movie-for-numerial-analysis-of-droplet
