@@ -12,6 +12,7 @@ count = 0
 inputDir = './'
 flag_vector_plot = -1
 output_val_num = -1
+zoom_para = 1
 
 def create_full_path(file_name):
     global inputDir
@@ -50,13 +51,18 @@ def create_f(f_name):
     # 8: al
 
     if flag_vector_plot == 1:
-        #plt.quiver(np_crd_x,np_crd_y,np_v_x,np_v_y,angles='xy',scale_units='xy',scale=None, width=0.01)
+        x_max = np.amax(np.absolute(data[:, int(output_val_num)]))
+        y_max = np.amax(np.absolute(data[:, int(output_val_num + 1)]))
+
+        base = x_max
+        if x_max < y_max:
+            base = y_max
 
         plt.quiver(data[:, 1],
                     data[:, 2],
                     data[:, int(output_val_num)],
                     data[:, int(output_val_num + 1)],
-                    angles='xy',scale_units='xy',scale=None, width=0.01)
+                    angles='xy',scale_units='width',scale=base*20, width=0.01)
 
     # 界面描画
     for i in range(4*nc):
@@ -67,9 +73,9 @@ def create_f(f_name):
 
     plt.xlabel('$\it{x}$'+' [m]')
     plt.ylabel('$\it{y}$'+' [m]')
-    plt.xlim(-1.0*all_domain, all_domain)
-    plt.ylim(-1.0*all_domain, all_domain)
-    plt.text(all_domain/3.0, -1.0*all_domain*0.9, "%e s" % time_data)
+    plt.xlim(-1.0*all_domain/float(zoom_para), all_domain/float(zoom_para))
+    plt.ylim(-1.0*all_domain/float(zoom_para), all_domain/float(zoom_para))
+    plt.text(all_domain/float(zoom_para)/3.0, -1.0*all_domain/float(zoom_para)*0.9, "%e s" % time_data, backgroundcolor='white')
     plt.tight_layout()
     plt.axes().set_aspect('equal')
 
@@ -79,6 +85,9 @@ def create_f(f_name):
 count = 0
 print("input data >>>")
 inputDir = input().strip()+"/"
+
+print("zoom para >>>")
+zoom_para = input()
 
 print("vector plot on(1) / off(0) >>>")
 flag_vector_plot = int(input())
