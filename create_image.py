@@ -90,6 +90,13 @@ def create_f(f_name, zoom_para, width_par_vec, output_val_num, flag_vector_plot,
             else:
                 plt.plot([data[int(i+interface_start), 1], data[int(i+1+interface_start), 1]], [data[int(i+interface_start), 2], data[int(i+1+interface_start), 2]],'m-.', lw=1.0)
 
+    if flag_vector_plot == 0:
+        for i in range(4*nc):
+            if i == 4*nc - 1:
+                plt.plot([data[int(i+interface_start), 1], data[int(interface_start), 1]], [data[int(i+interface_start), 2], data[int(interface_start), 2]],'m-.', lw=1.0, label = "Interface")
+            else:
+                plt.plot([data[int(i+interface_start), 1], data[int(i+1+interface_start), 1]], [data[int(i+interface_start), 2], data[int(i+1+interface_start), 2]],'m-.', lw=1.0)
+
     plt.xlabel('$\it{x}$'+' [m]')
     plt.ylabel('$\it{y}$'+' [m]')
     plt.xlim(-1.0*all_domain/float(zoom_para), all_domain/float(zoom_para))
@@ -150,6 +157,6 @@ def main():
     for i in range(length):
         if int(i % skip_num) == 0: 
             create_f(list4[i], zoom_para, width_par_vec, output_val_num, flag_vector_plot, count, flag_domain)
-            count += 1
+        count += 1
 
 main()
