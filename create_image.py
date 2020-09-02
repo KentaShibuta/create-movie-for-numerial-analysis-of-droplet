@@ -1,6 +1,8 @@
 import os
 import numpy as np
 import re
+import glob
+from natsort import natsorted
 
 import matplotlib.pyplot as plt
 import matplotlib.colors
@@ -141,22 +143,30 @@ def main():
         print("only liquid domain(1) / all aomain(2) >>>")
         flag_domain = int(input())
 
-    list1 = os.listdir(inputDir)
-    list2 = sort(list1)
+    #list1 = os.listdir(inputDir)
+    list1 = glob.glob(inputDir + "/*.csv")
 
+    #list2 = sort(list1)
+    list2 = natsorted(list1)
+    length = len(list2)
+    #print(list2)
+
+    '''
     list3 = [s for s in list2 if '.csv' in s]
     length = len(list3)
     print(length)
 
     list4 = list(map(functools.partial(create_full_path, inputDir=inputDir), list3))
-    print(list4)
+    #print(list4)
+    '''
 
     fig = plt.figure()
     image_list = []
 
     for i in range(length):
         if int(i % skip_num) == 0: 
-            create_f(list4[i], zoom_para, width_par_vec, output_val_num, flag_vector_plot, count, flag_domain)
+            #create_f(list4[i], zoom_para, width_par_vec, output_val_num, flag_vector_plot, count, flag_domain)
+            create_f(list2[i], zoom_para, width_par_vec, output_val_num, flag_vector_plot, count, flag_domain)
         count += 1
 
 main()
